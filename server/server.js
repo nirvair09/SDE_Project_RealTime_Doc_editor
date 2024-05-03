@@ -22,7 +22,7 @@ const io = require("socket.io")(3001, {
   },
 })
 
-console.log("Socket server listening on port 3001");
+console.log("Socket server listening");
 
 const defaultValue = ""
 
