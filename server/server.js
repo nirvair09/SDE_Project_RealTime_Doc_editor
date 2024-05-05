@@ -1,11 +1,11 @@
+// server.js
+
 const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
 const mongoose = require("mongoose");
 const Document = require("./Document");
-const dotenv = require("dotenv");
-
-dotenv.config();
+const path = require("path");
 
 const app = express();
 const server = http.createServer(app);
@@ -61,6 +61,14 @@ async function findOrCreateDocument(id) {
   console.log("Creating new document:", id);
   return await Document.create({ _id: id, data: defaultValue })
 }
+
+// Serve static files from the React app's build directory
+app.use(express.static(path.join(__dirname, "client/build")));
+
+// Define route for all other routes to serve the React app
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "/client/build/index.html"));
+});
 
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
