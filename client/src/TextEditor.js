@@ -23,7 +23,7 @@ export default function TextEditor() {
   const [quill, setQuill] = useState()
 
   useEffect(() => {
-    const s = io("https://sde-project-realtime-doc-editor.onrender.com")
+    const s = io("https://sde-project-realtime-backend.onrender.com/")
     setSocket(s)
 
     return () => {
